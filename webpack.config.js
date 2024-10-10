@@ -12,9 +12,13 @@ module.exports = {
 	entry: path.resolve(PATHS.SRC, "index.js"),
 	output: {
 		filename: "[name].[fullhash].js",
+		assetModuleFilename: 'assets/[name].[ext]',
 		publicPath: '/',
 		path: path.resolve(PATHS.DIST),
 		clean: true,
+	},
+	resolve: {
+		extensions: ['.js', '.css', '.scss']
 	},
 	module: {
 		rules: [
@@ -31,19 +35,19 @@ module.exports = {
 			{
 				test: /\.s[ac]ss$/,
 				use: [
-					"style-loader",
+					MiniCssExtractPlugin.loader,
 					{
 						loader: "css-loader",
-						options: { sourceMap: true, url: false },
+						options: { sourceMap: true },
 					},
 					"sass-loader",
 				],
 			},
 			{
 				test: /\.css$/,
-				use: ["style-loader", {
+				use: [MiniCssExtractPlugin.loader, {
 					loader: "css-loader",
-					options: { sourceMap: true, url: false },
+					options: { sourceMap: true },
 				},],
 			},
 			{
@@ -57,5 +61,8 @@ module.exports = {
 			template: path.resolve(PATHS.PUBLIC, "index.html"),
 			inject: "body",
 		}),
+		new MiniCssExtractPlugin({
+			filename: "[name].[fullhash].css",
+		})
 	],
 };
