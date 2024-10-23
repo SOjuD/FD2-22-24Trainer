@@ -1,3 +1,12 @@
+import { initApp } from "./app";
 import "./style.scss";
+import { movieEventName, searchParamsToObj } from "./utils";
 
-console.log('work')
+
+initApp(searchParamsToObj(window.location.search));
+
+document.addEventListener(movieEventName, () => {
+	const params = searchParamsToObj(window.location.search);
+
+	initApp(params)
+})

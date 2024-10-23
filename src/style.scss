@@ -118,9 +118,18 @@
   #filters div {
 	cursor: pointer;
   }
-  
-  div.active-search {
+
+  #results-filter [type="checkbox"]:checked + div,
+  #results-filter .activeFilter {
 	border-bottom: solid 2px red;
+  }
+
+  #resetFilters {
+	background: none;
+	border: none;
+	color: white;
+	padding: 0;
+	border-radius: 0;
   }
   #results-filter {
 	/* border: solid 1px white; */
@@ -158,30 +167,6 @@
   .card-image {
 	width: 300px;
 	height: 420px;
-	background-size:cover;
-  }
-  .card .pulp-fiction {
-	background-image: url('../public/images/page1/pulpFiction.png');
-  }
-  .card .bohemian-rhapsody {
-	background-image: url('../public/images/page1/bohemianRhapsody.png');
-  }
-  .card .kill-bill {
-	background-image: url('../public/images/page1/killBill.png');
-  }
-  .card .avengers {
-	background-image: url('../public/images/page1/avengers.png');
-	background-size: 200%;
-	background-position: center;
-  }
-  .card .inception {
-	background-image: url('../public/images/page1/inception.png');
-  }
-  .card .reservoir-dogs {
-	background-image: url('../public/images/page1/reservoirDogs.png');
-	background-position: right;
-	background-size: 210%;
-	background-repeat: no-repeat;
   }
   .title-and-year {
 	display: flex;
@@ -503,4 +488,88 @@
 	font-weight: 400;
 	color: rgb(255, 255, 255);
 	margin: 20px 0 0 60px;
+  }
+
+  .is-loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+  }
+
+  .is-loading:before {
+	content: "";
+	background: rgba(255, 255, 255, 0.3);
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1000;
+  }
+
+  .pagination button {
+	background: none;
+	border: none;
+	color: white;
+	padding: 10px;
+	transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  .pagination {
+	display: flex;
+	justify-content: space-around;
+  }
+
+  .pagination button:disabled {
+	cursor: auto;
+	opacity: 0.5;
+  }
+
+  .pagination button:not(:disabled):hover {
+	transform: scale(1.2);
+  }
+
+  .is-loading .loader {
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1001;
+  }
+
+  .loader {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	position: relative;
+	animation: rotate 1s linear infinite;
+	display: none;
+  }
+  .loader::before , .loader::after {
+	content: "";
+	box-sizing: border-box;
+	position: absolute;
+	inset: 0px;
+	border-radius: 50%;
+	border: 5px solid #FFF;
+	animation: prixClipFix 2s linear infinite ;
+  }
+  .loader::after{
+	inset: 8px;
+	transform: rotate3d(90, 90, 0, 180deg );
+	border-color: #FF3D00;
+  }
+
+  @keyframes rotate {
+	0%   {transform: rotate(0deg)}
+	100%   {transform: rotate(360deg)}
+  }
+
+  @keyframes prixClipFix {
+	  0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+	  50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+	  75%, 100%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
   }
