@@ -1,6 +1,6 @@
 import { defaultSearchParams } from '../../api/constants';
-import { getCurrentSearchParamsObj, updateSearchParams } from '../../utils/search';
-import { createPaginationArrows } from './paginationArrows';
+import { updateSearchParams } from '../../utils/search';
+import { updatePaginationArrows } from './paginationArrows';
 import { createPaginationItem } from './paginationItem';
 const paginationContainerElement = document.querySelector('#pagination-container')
 const paginationElement = document.querySelector('#pagination')
@@ -11,23 +11,27 @@ paginationElement?.addEventListener('click', (e) => {
 
 
 	updateSearchParams({
-		offset: pagination * defaultSearchParams.limit
+		offset: (pagination - 1) * defaultSearchParams.limit
 	})
 })
 
 const paginationLimitDefault = 4;
 
 export const createPagination = (limit, offset, total) => {
-	const { offset: currentOffset } = getCurrentSearchParamsObj();
-	const currentPage = !currentOffset ? 0 : currentOffset / defaultSearchParams.limit;
+	const totalPages = Math.ceil(total / limit); // Общее количество страниц
+	const currentPage = Math.floor(offset / limit) + 1; // Текущая страница
 
 	paginationContainerElement.innerHTML = '';
-	createPaginationArrows(paginationElement);
-	const startPage = offset ? (offset / limit) : offset;
-	const paginationNumbers = Array.from(Array(Math.ceil(total / limit)).keys());
-	const paginationLimit = paginationNumbers.includes(startPage + paginationLimitDefault) ? startPage + paginationLimitDefault : 1
+	updatePaginationArrows(currentPage);
 
-	const paginationButtons = paginationNumbers.slice(startPage, paginationLimit + 1).map(number => createPaginationItem(number + 1, number === currentPage));
+	// Определяем диапазон страниц
+	const startPage = Math.max(1, currentPage - 2); // Начальная страница
+	const endPage = Math.min(totalPages, startPage === 1 ? 5 : currentPage + 2); // Конечная страница
 
-	paginationContainerElement.append(...paginationButtons)
+	// Создаем элементы пагинации
+	for (let page = startPage; page <= endPage; page++) {
+		const isCurrentPage = page === currentPage;
+		const paginationItem = createPaginationItem(page, isCurrentPage);
+		paginationContainerElement.appendChild(paginationItem);
+	}
 }

@@ -17,8 +17,10 @@
 		<button id="addMovieBut">+ ADD MOVIE</button>
 		<div id="searchArea">
 			<h1 id="searchLogo">FIND YOUR MOVIE</h1>
-			<input type="text" id="searchInput" placeholder="What do you want to watch?">
-			<button id="search-btn" type="submit">SEARCH</button>
+			<form id="searchForm">
+				<input type="text" name='search' id="searchInput" placeholder="What do you want to watch?">
+				<button id="search-btn" type="submit">SEARCH</button>
+			</form>
 		</div>
 	</header>
 	<main>
@@ -66,7 +68,9 @@
 		<section id="cards">
 		</section>
 		<section id="pagination" class="pagination">
+			<button type="button" class="paginationArrow back">&#171;</button>
 			<div id="pagination-container"></div>
+			<button type="button" class="paginationArrow forward">&#187;</button>
 		</section>
 	</main>
 	<footer>
@@ -179,55 +183,35 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal modal-congratulations" style="display: none;">
-		<div class="modal-overlay">
-			<div class="modal-window congratulations">
-				<span class="modal-close">&times;</span>
-				<div id="modal-window-congratulaties">
-					<svg width="66.000000" height="66.000000" viewBox="0 0 66 66" fill="none"
-						xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="modal-ok">
-						<desc>
-							Created with Pixso.
-						</desc>
-						<defs />
-						<circle id="Oval" cx="33.000000" cy="33.000000" r="33.000000" fill="#F65261"
-							fill-opacity="1.000000" />
-						<circle id="Oval" cx="33.000000" cy="33.000000" r="32.500000" stroke="#F65261"
-							stroke-opacity="1.000000" stroke-width="1.000000" />
-						<path id="Path 4"
-							d="M12.25 37.59L12.22 37.59C11.24 36.6 11.24 35.05 12.23 34.06C13.22 33.07 14.78 33.07 15.77 34.07L15.77 34.09L12.25 37.59ZM47.22 19.26L47.22 19.23C48.21 18.24 49.77 18.24 50.76 19.22C51.75 20.21 51.75 21.77 50.77 22.76L50.74 22.76L47.22 19.26Z"
-							fill="#D8D8D8" fill-opacity="0" fill-rule="nonzero" />
-						<path id="Path 4" d="M14 35.83L24.11 46L49 21" stroke="#FFFFFF" stroke-opacity="1.000000"
-							stroke-width="5.000000" stroke-linecap="round" />
-					</svg>
-					<div id="div-congratullations">CONGRATULATIONS !</div>
-					<div id="div-congratullations-message">The movie has been added to database successfully</div>
-				</div>
-			</div>
+	<div class="modal-window congratulations">
+		<span class="modal-close">&times;</span>
+		<div id="modal-window-congratulaties">
+			<svg width="66.000000" height="66.000000" viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink" id="modal-ok">
+				<desc>
+					Created with Pixso.
+				</desc>
+				<defs />
+				<circle id="Oval" cx="33.000000" cy="33.000000" r="33.000000" fill="#F65261" fill-opacity="1.000000" />
+				<circle id="Oval" cx="33.000000" cy="33.000000" r="32.500000" stroke="#F65261" stroke-opacity="1.000000"
+					stroke-width="1.000000" />
+				<path id="Path 4"
+					d="M12.25 37.59L12.22 37.59C11.24 36.6 11.24 35.05 12.23 34.06C13.22 33.07 14.78 33.07 15.77 34.07L15.77 34.09L12.25 37.59ZM47.22 19.26L47.22 19.23C48.21 18.24 49.77 18.24 50.76 19.22C51.75 20.21 51.75 21.77 50.77 22.76L50.74 22.76L47.22 19.26Z"
+					fill="#D8D8D8" fill-opacity="0" fill-rule="nonzero" />
+				<path id="Path 4" d="M14 35.83L24.11 46L49 21" stroke="#FFFFFF" stroke-opacity="1.000000"
+					stroke-width="5.000000" stroke-linecap="round" />
+			</svg>
+			<div id="div-congratullations">CONGRATULATIONS !</div>
+			<div id="div-congratullations-message">The movie has been added to database successfully</div>
 		</div>
 	</div>
-	<div class="modal modal-delete-movie" style="display: none;">
-		<div class="modal-overlay">
-			<div class="modal-window modal-window-delete">
-				<span class="modal-close">&times;</span>
-				<div id="delete-and-edit-buttons">
-					<div class="edit-and-delete-buttons" id="edit-button">Edit</div>
-					<div class="edit-and-delete-buttons" id="delete-button">Delete</div>
-				</div>
-			</div>
+	<div class="modal-window delete-movie-modal-window">
+		<span class="modal-close delete-movie">&times;</span>
+		<div id="modal-window-delete">
+			<div id="div-delete">DELETE MOVIE</div>
+			<div id="div-delete-message">Are you sure you want to delete this movie?</div>
 		</div>
-	</div>
-	<div class="modal modal-delete-movie" style="display: none;">
-		<div class="modal-overlay">
-			<div class="modal-window delete-movie-modal-window">
-				<span class="modal-close delete-movie">&times;</span>
-				<div id="modal-window-delete">
-					<div id="div-delete">DELETE MOVIE</div>
-					<div id="div-delete-message">Are you sure you want to delete this movie?</div>
-				</div>
-				<button type="submit" id="delete-confirm">CONFIRM</button>
-			</div>
-		</div>
+		<button type="submit" id="delete-confirm">CONFIRM</button>
 	</div>
 	<div class="modal modal-edit-movie" style="display: none;">
 		<div class="modal-overlay">
@@ -343,6 +327,16 @@
 				<div class="card-year"></div>
 			</div>
 			<div class="gender"></div>
+			<button type="button" class="card-options">...</button>
+			<div class="modal modal-delete-movie" style="display: none;">
+				<div class="modal-window modal-window-delete">
+					<span class="modal-close">&times;</span>
+					<div id="delete-and-edit-buttons">
+						<button type="button" class="edit-and-delete-buttons" data-edit>Edit</button>
+						<button type="button" class="edit-and-delete-buttons" data-delete>Delete</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</template>
 </body>

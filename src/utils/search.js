@@ -17,9 +17,7 @@ export const searchParamsToObj = (searchParams) => {
 export const getCurrentSearchParamsObj = () => searchParamsToObj(window.location.search);
 
 export const updateSearchParams = (newParams) => {
-
-
-	window.history.pushState(undefined, '', window.location.origin + objToSearchParams({ ...searchParams, ...newParams }))
+	window.history.pushState(undefined, '', window.location.origin + objToSearchParams({ ...getCurrentSearchParamsObj(), ...newParams }))
 
 	moviesEvent()
 }

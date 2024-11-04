@@ -44,6 +44,8 @@ filtersForm?.addEventListener('change', (e) => {
 	updateSearchParams({
 		filter: filter.toString(),
 		...sortParams[sort],
-		offset: 0
+		offset: 0,
+		search: undefined,
+		searchBy: undefined
 	})
 })

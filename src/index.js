@@ -5,8 +5,6 @@ import { movieEventName, searchParamsToObj } from "./utils";
 
 initApp(searchParamsToObj(window.location.search));
 
-document.addEventListener(movieEventName, () => {
-	const params = searchParamsToObj(window.location.search);
+document.addEventListener(movieEventName, initApp)
 
-	initApp(params)
-})
+window.addEventListener('popstate', initApp)

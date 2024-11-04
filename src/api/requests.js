@@ -12,3 +12,13 @@ export const getMovies =
 			.then(handleRequestResolve)
 			.catch(handleRequestReject)
 	}
+
+export const deleteMovie = (id) => {
+	startLoading();
+	return fetch(`${baseApiUrl}/${id}`, {
+		method: "Delete"
+	})
+		.then(handleRequestResolve)
+		.catch(handleRequestReject)
+
+}

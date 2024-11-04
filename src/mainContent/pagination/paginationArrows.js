@@ -1,12 +1,10 @@
 
-export const createPaginationArrows = (container) => {
-	const backArrow = document.createElement('button');
-	backArrow.classList.add('paginationArrow', 'back')
-	backArrow.textContent = '<'
-	const forwardArrow = document.createElement('button');
-	forwardArrow.textContent = '>'
-	forwardArrow.classList.add('paginationArrow', 'forward')
-
-	container.prepend(backArrow);
-	container.append(forwardArrow);
+const [back, forward] = document.querySelectorAll('.paginationArrow')
+export const updatePaginationArrows = (currentPage) => {
+	try {
+		forward.dataset.page = currentPage + 1;
+		back.dataset.page = currentPage - 1;
+	} catch {
+		console.error('pagination arrows not found')
+	}
 }

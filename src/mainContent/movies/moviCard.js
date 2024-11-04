@@ -13,6 +13,8 @@ export const createMovieCard = (movieData) => {
 	const movieCardTitle = movieCard.querySelector('.card-title');
 	const movieCardYear = movieCard.querySelector('.card-year');
 	const movieCardGenre = movieCard.querySelector('.gender');
+	const movieDeleteButton = movieCard.querySelector('[data-delete]');
+	const movieEditButton = movieCard.querySelector('[data-edit]');
 
 	movieCardImage.src = movieData.poster_path;
 	movieCardImage.alt = movieData.title;
@@ -25,6 +27,8 @@ export const createMovieCard = (movieData) => {
 	movieCardTitle.textContent = movieData.title;
 	movieCardYear.textContent = getYearFromMoveReleaseDate(movieData.release_date);
 	movieCardGenre.textContent = movieData.genres.join(', ');
+	movieDeleteButton.dataset.delete = movieData.id;
+	movieEditButton.dataset.edit = movieData.id;
 
 	return (movieCard)
 }
